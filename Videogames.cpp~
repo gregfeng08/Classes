@@ -1,0 +1,14 @@
+#include <iostream>
+#include "Videogames.h"
+
+char* Videogames::getPublisher(){
+  return publisher; 
+}
+
+float Videogames::getRating(){
+  return rating;
+}
+
+int Videogames::getType(){
+  return 0;
+}

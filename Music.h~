@@ -1,0 +1,16 @@
+#include <iostream>
+#include "Media.h"
+
+class Music : public Media
+{
+ public:
+  Music(char*, int, char*, float, char*);
+  char* getArtist();
+  float getDuration();
+  float getPublisher();
+  int getType();
+ private:
+  char artist[20];
+  float duration;
+  float publisher[20];
+};

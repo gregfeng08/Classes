@@ -1,0 +1,13 @@
+#include <iostream>
+#include <cstring>
+
+class Media{
+ public:
+  Media(char*, int);
+  char* getTitle();
+  int getYear();
+  int getType();
+ private:
+  char title[48];
+  int year;
+};
