@@ -25,8 +25,10 @@ int main() {
     vector<Media*>* array;
     char userInput[10];
     cout << "Hi and welcome to the Classes program. Current functions: ADD, DELETE, SEARCH and QUIT" << endl;
-    cin >> userInput;
     while(codeRunning == true) {
+      cin.get(userInput, 10);
+      cin.clear();
+      cin.ignore(9999, '\n'); //>.>
       if (strcmp(userInput, "ADD") == 0) {
 	add(array);
       }
@@ -43,6 +45,8 @@ int main() {
       else {
 	cout << "Invalid input, please enter either ADD, SEARCH, DELETE, or QUIT" << endl;
       }
+      
+      
     }
 }
 
