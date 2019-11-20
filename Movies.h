@@ -3,13 +3,14 @@
 
 class Movies : public Media
 {
- public :
+public : //Public variable defintion
   Movies(char*, int, char*, float, float);
+  ~Movies(); //Destructor definition
   char* getDirector();
   float getDuration();
   float getRating();
   int getType();
- private:
+private: //Private variable definition
   char director[20];
   float duration;
   float rating;

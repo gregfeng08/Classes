@@ -5,13 +5,15 @@
 #define MEDIA_H
 
 class Media{
- public:
+public: //Public variable definitions
   Media(char*, int);
   char* getTitle();
   int getYear();
-  int getType();
- private:
-  char title[48];
+  ~Media(); //Destructor definition
+  virtual int getType(); //Type is virtual
+private: //Private variable definitions
+  char* title;
   int year;
 };
+
 #endif

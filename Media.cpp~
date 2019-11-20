@@ -1,7 +1,8 @@
 #include <iostream>
 #include "Media.h"
-
+#include <cstring>
 Media::Media(char* newTitle, int newYear){
+  title = new char[strlen(newTitle)+1];
   strcpy(title, newTitle);
   year = newYear;
 }
@@ -15,5 +16,9 @@ int Media::getYear(){
 }
 
 int Media::getType(){
+  return 1;
+}
 
+Media::~Media() {
+  delete[] title;
 }

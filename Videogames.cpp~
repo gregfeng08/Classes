@@ -1,8 +1,14 @@
 #include <iostream>
+#include <cstring>
 #include "Videogames.h"
 
+Videogames::Videogames(char* newTitle, int newYear, char* newPublisher, float newRating) : Media(newTitle, newYear){
+  strcpy(publisher, newPublisher);
+  rating = newRating;
+}
+
 char* Videogames::getPublisher(){
-  return publisher; 
+  return publisher;
 }
 
 float Videogames::getRating(){
@@ -10,5 +16,9 @@ float Videogames::getRating(){
 }
 
 int Videogames::getType(){
-  return 0;
+  return 1; 
 }
+
+/*Videogames::~Videogames() {
+  delete publisher;
+  }*/

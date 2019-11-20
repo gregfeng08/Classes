@@ -1,14 +1,17 @@
 #include <iostream>
 #include <cstring>
 #include "Music.h"
-
-Music::Music(char* newTitle, int newYear, char* newArtist, float newDuration, char* newPublisher) : Media(newTitle, newYear){
+#include "Media.h"
+//Allows the user to add new values
+Music::Music(char* title, int year, char* newArtist, float newDuration, char* newPublisher):Media(title, year){
+  artist = new char[strlen(newArtist)+1];
+  publisher = new char[strlen(newPublisher)+1];
   strcpy(artist, newArtist);
   duration = newDuration;
   strcpy(publisher, newPublisher);
 }							   
 
-char* Music::getArtist(){
+char* Music::getArtist(){ //Returns respective information
   return artist;
 }
 
@@ -21,5 +24,9 @@ char* Music::getPublisher(){
 }
 
 int Music::getType(){
-  return 0;
+  return 2;
 }
+/*Music::Music() {
+  delete artist;
+  delete publisher;
+  }*/

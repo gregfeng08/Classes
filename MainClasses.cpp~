@@ -1,40 +1,42 @@
 #include <iostream>
 #include <vector>
 #include <cstring>
-#include "Media.h"
+#include "Media.h" //Includes the separate subclasses
 #include "Movies.h"
 #include "Music.h"
 #include "videogames.h"
 
 using namespace std;
 
-void add(vector<Media*>* array);
+void add(vector<Media*>* arr); //Function Definitions
 
-void search(vector<Media*>* array);
+void search(vector<Media*>* arr);
 
-void del(vector<Media*>* array);
+void del(vector<Media*>* arr);
 
-void addMovie(vector<Media*>* array);
+void addMovie(vector<Media*>* arr);
 
-void addVideogame(vector<Media*>* array);
+void addVideogame(vector<Media*>* arr);
 
-void addMusic(vector<Media*>* array);
+void addMusic(vector<Media*>* arr);
 
-int main() {
+int main() { //Main function
     bool codeRunning = true;
-    vector<Media*>* array;
-    char userInput[10];
+    vector<Media*>* arr1 = new vector<Media*>; //Vector definition
+    char userInput[10]; 
     cout << "Hi and welcome to the Classes program. Current functions: ADD, DELETE, SEARCH and QUIT" << endl;
-    cin >> userInput;
-    while(codeRunning == true) {
-      if (strcmp(userInput, "ADD") == 0) {
-	add(array);
+    while(codeRunning == true) { //For quit function
+      cin.get(userInput, 10);
+      cin.clear();
+      cin.ignore(9999, '\n'); //>.>
+      if (strcmp(userInput, "ADD") == 0) { //Apply respective functions if the user asks fo rit
+	add(arr1);
       }
       else if (strcmp(userInput, "DELETE") == 0) {
-	del(array);
+       	del(arr1);
       }
       else if (strcmp(userInput, "SEARCH") == 0) {
-	search(array);
+	search(arr1);
       }
       else if (strcmp(userInput, "QUIT") == 0) {
 	codeRunning = false;
@@ -43,10 +45,13 @@ int main() {
       else {
 	cout << "Invalid input, please enter either ADD, SEARCH, DELETE, or QUIT" << endl;
       }
+      cout << "Current functions: ADD, DELETE, SEARCH and QUIT" << endl;
+      
+      
     }
 }
 
-void addMovie(vector <Media*> *arr) {
+void addMovie(vector <Media*> *arr) { //Function that adds a user-inputted movie in and pushes it into their respective locations
   char title[20] = "";
   char director[20] = "";
   int year = 0;
@@ -75,12 +80,12 @@ void addMovie(vector <Media*> *arr) {
   cin.clear();
   cin.ignore(9999, '\n');
   
-  arr->push_back(new Movies(title, year, director, duration, rating));
+  arr->push_back(new Movies(title, year, director, duration, rating)); //Pushback the end of the pointer array
   
   cout << "Pushed!" << endl;
 }
 
-void addVideogame(vector <Media*> *arr) {
+void addVideogame(vector <Media*> *arr) { //Adds a user-inputted videogame
   char title[20] = "";
   int year = 0;
   char publisher[20] = "";
@@ -109,47 +114,48 @@ void addVideogame(vector <Media*> *arr) {
   cout << "Pushed!" << endl;
 }
 
-void addMusic(vector <Media*> *arr) {
+void addMusic(vector <Media*> *arr) { //Adds a user-inputted music
   char title[20] = "";
-  int year = 0;
+  int year;
   char artist[20] = "";
-  float duration = 0.0;
+  float duration;
   char publisher[20] = "";
   
   cout << "Title?" << endl;
   cin.get(title, 20);
   cin.clear();
-  cin.ignore(9999, '\n'); 
+  cin.ignore(999, '\n'); 
 
   cout << "Artist?" << endl;
   cin.get(artist, 20);
   cin.clear();
-  cin.ignore(9999, '\n');
+  cin.ignore(999, '\n');
   
   cout << "Year?" << endl;
   cin >> year;
   cin.clear();
-  cin.ignore(9999, '\n');
+  cin.ignore(999, '\n');
   
   cout << "Duration?" << endl;
   cin >> duration;
   cin.clear();
-  cin.ignore(9999, '\n');
+  cin.ignore(999, '\n');
   
   cout << "Publisher?" << endl;
   cin.get(publisher, 20);
   cin.clear();
   cin.ignore(9999, '\n');
-  
   arr->push_back(new Music(title, year, artist, duration, publisher));
   
   cout << "Pushed!" << endl;
 }
 
-void add(vector<Media*>* array) {
+void add(vector<Media*>* array) { //Main program function for add
   char userInput1[10];
   cout << "What type of an array would you like to add? (MOVIE/MUSIC/VIDEOGAME)" << endl;
   cin.get(userInput1, 10);
+  cin.clear();
+  cin.ignore(999, '\n');
   if (strcmp(userInput1, "MUSIC") == 0) {
     addMusic(array);
   }
@@ -163,3 +169,65 @@ void add(vector<Media*>* array) {
     cout << "Invalid input" << endl;
   }
 }
+
+void search(vector<Media*>* array) { //Main program function for search
+  vector <Media*>::iterator i;
+  char searchTitle[20] = "";
+  cout << "What is the title of the Media that you would like to search for?" << endl; //User-input as to which title ot search for
+  cin.get(searchTitle, 20);
+  cin.clear();
+  cin.ignore(9999, '\n');
+  for(i = array->begin(); i != array->end(); i++){ //Uses an iterator to scan through all of the arrays to get the pushed values
+      if(strcmp((*i)->getTitle(), searchTitle) == 0){
+	int mediaType = (*i)->getType();
+	if(mediaType == 1){
+	  cout << "Title: " << (*i)->getTitle() << " Year: " << (*i)->getYear() << " Publisher: " << ((Videogames*)(*i))->getPublisher() << " Rating: " << ((Videogames*)(*i))->getRating() << endl;
+	}
+	else if(mediaType == 2){
+	  cout << "Title: " << (*i)->getTitle() << " Year: " << (*i)->getYear() << " Artist: " << ((Music*)(*i))->getArtist() << " Duration: " << ((Music*)(*i))->getDuration() << " Publisher: "<< ((Music*)(*i))->getPublisher() << endl;
+	}
+	else if(mediaType == 3){
+	  cout << "Title: " << (*i)->getTitle() << " Year: " << (*i)->getYear() << " Director: " << ((Movies*)(*i))->getDirector() << " Duration: " << ((Movies*)(*i))->getDuration() << " Rating: " << ((Movies*)(*i))->getRating() << endl;
+	}
+	
+      }
+  }
+}
+void del(vector<Media*>* array) { //Main section for the delete function
+  vector <Media*>::iterator i;
+  char delTitle[20] = "";
+  cout << "What is the title of the Media that you would like to delete?" << endl;
+  cin.get(delTitle, 20);
+  cin.clear();
+  cin.ignore(9999, '\n');
+  for(i = array->begin(); i != array->end(); ){ //Use of an iterator to scan through each of the data arrays and asks before confirming if you want to delete the value as you go
+      if(strcmp((*i)->getTitle(), delTitle) == 0){
+	int mediaType = (*i)->getType();
+	if(mediaType == 1){
+	  cout << "Title: " << (*i)->getTitle() << " Year: " << (*i)->getYear() << " Publisher: " << ((Videogames*)(*i))->getPublisher() << " Rating: " << ((Videogames*)(*i))->getRating() << endl;
+	}
+	else if(mediaType == 2){
+	  cout << "Title: " << (*i)->getTitle() << " Year: " << (*i)->getYear() << " Artist: " << ((Music*)(*i))->getArtist() << " Duration: " << ((Music*)(*i))->getDuration() << " Publisher: "<< ((Music*)(*i))->getPublisher() << endl;
+	}
+	else if(mediaType == 3){
+	  cout << "Title: " << (*i)->getTitle() << " Year: " << (*i)->getYear() << " Director: " << ((Movies*)(*i))->getDirector() << " Duration: " << ((Movies*)(*i))->getDuration() << " Rating: " << ((Movies*)(*i))->getRating() << endl;
+	}
+	
+	
+	char delInput[1] = "";
+	cout << "Delete confirm (y/n)?" << endl; //Confirm your delete?
+	cin.get(delInput, 1);
+	cin.clear();
+	cin.ignore(9999, '\n');
+	if (strcmp(delInput, "y") == 0) { //If the delete is confirmed, use a destructor/deconstructor to delete the value from the array
+	  delete *i;
+	  //i = array->erase(i);
+	  cout << "Successfully deleted!" << endl;
+	}
+	else if (strcmp(delInput, "n") == 0) { //If not, skip through the value by adding 1 to the i value of the iterator
+	  i++;
+	}
+      }
+  }
+}
+
